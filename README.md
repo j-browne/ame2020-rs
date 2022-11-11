@@ -2,8 +2,8 @@
 
 A parsing library for the [Atomic Mass Evaluation 2020] format
 
-The data is represented by [`Nuclide`], and the parsing is mostly done by [`Iter`].
-The data can be collected into a type that implements [`FromIterator`], such as [`Vec`].
+The data is represented by `Nuclide`, and the parsing is mostly done by `Iter`.
+The data can be collected into a type that implements `FromIterator`, such as `Vec`.
 
 [Atomic Mass Evaluation 2020]: https://www-nds.iaea.org/amdc/
 

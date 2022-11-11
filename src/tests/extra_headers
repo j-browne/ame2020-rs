@@ -1,0 +1,8 @@
+1
+1
+Here is some text that is in the header space
+It shouldn't cause any problems, unless the line starts with a '0'
+Test
+Test
+Test
+0  1    1    0    1  n         8071.31806     0.00044       0.0        0.0     B-    782.3470     0.0004    1 008664.91590     0.00047

@@ -1,0 +1,36 @@
+1    a0dsskgw                                 A T O M I C   M A S S   A D J U S T M E N T
+0                                                     DATE  3 Mar 2021 TIME 22:41
+0        *********************                               A=   0 TO 295
+         * file : mass.mas20 *
+         *********************
+
+   This is one file out of a series of 3 files published in:
+       "The Ame2020 atomic mass evaluation (I)"   by W.J.Huang, M.Wang, F.G.Kondev, G.Audi and S.Naimi
+           Chinese Physics C45, 030002, March 2021.
+       "The Ame2020 atomic mass evaluation (II)"  by M.Wang, W.J.Huang, F.G.Kondev, G.Audi and S.Naimi
+           Chinese Physics C45, 030003, March 2021.
+                       for files : mass.mas20 : atomic masses
+                                   rct1.mas20 : react and sep energies,  part 1
+                                   rct2.mas20 : react and sep energies,  part 2
+   A fourth file  is the "Rounded" version of the atomic mass table (the first file)
+                                   massround.mas20  atomic masses "Rounded" version
+
+   Values in files 1, 2 and 3 are unrounded version of the published ones
+   Values in file  4          are exact copy of the published ones
+
+   col 1     :  Fortran character control: 1 = page feed  0 = line feed
+   format    :  a1,i3,i5,i5,i5,1x,a3,a4,1x,f14.6,f12.6,f13.5,1x,f10.5,1x,a2,f13.5,f11.5,1x,i3,1x,f13.6,f12.6
+                cc NZ  N  Z  A    el  o     mass  unc binding unc      B  beta  unc    atomic_mass   unc
+   Warnings  :  this format is not identical to that used in AME2016;
+                one more digit is added to the "BINDING ENERGY/A", "BETA-DECAY ENERGY" and "ATOMIC-MASS" values and their uncertainties;
+                # in a place of decimal point : estimated (non-experimental) value;
+                * in a place of value : the not calculable quantity
+
+....+....1....+....2....+....3....+....4....+....5....+....6....+....7....+....8....+....9....+...10....+...11....+...12....+...13
+
+
+                                                               MASS LIST
+                                                             for analysis
+
+1N-Z    N    Z   A  EL    O     MASS EXCESS           BINDING ENERGY/A        BETA-DECAY ENERGY               ATOMIC MASS
+                                   (keV)                  (keV)                    (keV)                        (micro-u)

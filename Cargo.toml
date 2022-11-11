@@ -1,0 +1,28 @@
+[package]
+name = "ame2020"
+version = "0.1.0"
+description = "A parsing library for the Atomic Mass Evaluation 2020 format"
+repository = "https://github.com/j-browne/ame2020-rs"
+categories = ["science", "parser-implementations"]
+keywords = ["parser", "physics"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+
+[features]
+serde = ["dep:serde", "arrayvec/serde"]
+
+[dependencies]
+arrayvec = "0.7.2"
+serde = { version = "1.0.145", optional = true, features = ["derive"], default-features = false }
+thiserror = "1.0.37"
+
+[dev-dependencies]
+clap = { version = "4.0.17", features = ["derive"] }
+serde_json = "1.0.87"
+
+[[example]]
+name = "convert_to_json"
+required-features = ["serde"]
+
+[package.metadata.docs.rs]
+all-features = true

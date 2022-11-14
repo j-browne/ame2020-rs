@@ -29,6 +29,9 @@
 //! # Features
 //!
 //! * `serde`: Provide `Serialize` and `Deserialize` implementations for [serde](https://serde.rs).
+//! * `arbitrary`: Provide `Arbitrary` implementations for [arbitrary](https://crates.io/crates/arbitrary), useful for fuzzing.
+#[cfg(feature = "arbitrary")]
+use arbitrary::{Arbitrary, Unstructured};
 use arrayvec::ArrayString;
 #[cfg(feature = "serde")]
 use serde::{Deserialize, Serialize};
@@ -52,6 +55,7 @@ mod tests;
 /// If not, they are based on experimental data.
 #[derive(Clone, PartialEq, Debug, Default)]
 #[cfg_attr(feature = "serde", derive(Deserialize, Serialize))]
+#[cfg_attr(feature = "arbitrary", derive(Arbitrary))]
 pub struct Value {
     pub mean: f64,
     pub uncertainty: f64,
@@ -102,6 +106,51 @@ pub struct Nuclide {
     pub beta_decay_energy: Option<Value>,
     /// Atomic Mass in atomic mass units
     pub atomic_mass: Value,
+}
+
+#[cfg(feature = "arbitrary")]
+impl<'a> Arbitrary<'a> for Nuclide {
+    fn arbitrary(u: &mut Unstructured) -> arbitrary::Result<Self> {
+        // this is adapted from arbitrary's implementation of Arbitrary for &str
+        fn array_string<const CAP: usize>(
+            u: &mut Unstructured,
+        ) -> arbitrary::Result<ArrayString<CAP>> {
+            let size = usize::min(u.arbitrary_len::<u8>()?, CAP);
+            match std::str::from_utf8(u.peek_bytes(size).unwrap()) {
+                Ok(s) => {
+                    u.bytes(size).unwrap();
+                    Ok(ArrayString::from(s).expect("size is limited to CAP"))
+                }
+                Err(e) => {
+                    let i = e.valid_up_to();
+                    let valid = u.bytes(i).unwrap();
+                    let s = ArrayString::from(
+                        std::str::from_utf8(valid).expect("we already checked for validity"),
+                    )
+                    .expect("size is limited to CAP");
+                    Ok(s)
+                }
+            }
+        }
+
+        let n = u.arbitrary()?;
+        let z = u.arbitrary()?;
+        let element = array_string(u)?;
+        let mass_excess = u.arbitrary()?;
+        let binding_energy_per_a = u.arbitrary()?;
+        let beta_decay_energy = u.arbitrary()?;
+        let atomic_mass = u.arbitrary()?;
+
+        Ok(Self {
+            n,
+            z,
+            element,
+            mass_excess,
+            binding_energy_per_a,
+            beta_decay_energy,
+            atomic_mass,
+        })
+    }
 }
 
 #[derive(Copy, Clone, Eq, PartialEq, Hash, Debug)]

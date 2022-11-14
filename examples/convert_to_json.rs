@@ -5,6 +5,7 @@ use std::{
     error::Error,
     fs::File,
     io::{stdout, BufReader},
+    path::PathBuf,
 };
 
 /// Example program for converting from the atomic mass evaluation format to json
@@ -12,7 +13,7 @@ use std::{
 #[command(about, long_about = None)]
 struct Cli {
     /// File to read from.
-    file: String,
+    file: PathBuf,
 }
 
 fn main() -> Result<(), Box<dyn Error>> {

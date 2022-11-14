@@ -3,6 +3,7 @@ name = "ame2020"
 version = "0.1.1"
 description = "A parsing library for the Atomic Mass Evaluation 2020 format"
 repository = "https://github.com/j-browne/ame2020-rs"
+documentation = "https://docs.rs/ame2020"
 categories = ["science", "parser-implementations"]
 keywords = ["parser", "physics"]
 license = "MIT OR Apache-2.0"

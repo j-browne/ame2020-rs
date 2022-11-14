@@ -1,0 +1,47 @@
+[package]
+name = "ame2020-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+serde = { version = "1.0.145", features = ["derive"], default-features = false, optional = true }
+serde_json = { version = "1.0.87", optional = true }
+
+[dependencies.ame2020]
+path = ".."
+
+[features]
+serde = ["ame2020/serde", "dep:serde", "dep:serde_json"]
+arbitrary = ["ame2020/arbitrary"]
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[profile.release]
+debug = 1
+
+[[bin]]
+name = "all"
+path = "fuzz_targets/all.rs"
+test = false
+doc = false
+
+[[bin]]
+name = "serialize"
+path = "fuzz_targets/serialize.rs"
+test = false
+doc = false
+required-features = ["arbitrary", "serde"]
+
+[[bin]]
+name = "deserialize"
+path = "fuzz_targets/deserialize.rs"
+test = false
+doc = false
+required-features = ["serde"]

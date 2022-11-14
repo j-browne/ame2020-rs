@@ -1,6 +1,6 @@
 [package]
 name = "ame2020"
-version = "0.1.0"
+version = "0.1.1"
 description = "A parsing library for the Atomic Mass Evaluation 2020 format"
 repository = "https://github.com/j-browne/ame2020-rs"
 categories = ["science", "parser-implementations"]

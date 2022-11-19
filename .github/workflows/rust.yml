@@ -1,0 +1,41 @@
+name: Rust
+
+on:
+  push:
+  pull_request:
+  schedule: [cron: "19 10 26 * *"]
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTFLAGS: -Dwarnings
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        features: [",", "serde", "arbitrary", "serde,arbitrary"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build
+      run: cargo build --verbose --features ${{ matrix.features }}
+    - name: Run tests
+      run: cargo test --verbose --features ${{ matrix.features }}
+  clippy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        features: [",", "serde", "arbitrary", "serde,arbitrary"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run clippy
+      run: cargo clippy --verbose --features ${{ matrix.features }} -- -Dclippy::all -Dclippy::pedantic
+    - name: Run clippy on tests
+      run: cargo clippy --verbose --tests --features ${{ matrix.features }} -- -Dclippy::all -Dclippy::pedantic
+  fmt:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Check Formatting
+      run: cargo fmt --verbose --check
